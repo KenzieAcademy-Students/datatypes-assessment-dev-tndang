@@ -23,3 +23,9 @@ let analyzedData = {
     last3Words: [],
     waldoOccuranceIndex: [],
 }
+
+let dataAnalysis = function() {
+
+}
+
+textArea.addEventListener("keyup", dataAnalysis);
