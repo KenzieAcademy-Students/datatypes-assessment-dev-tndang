@@ -25,10 +25,46 @@ let analyzedData = {
 }
 
 let vowelCounter = function() {
-    let vowels = {};
-    let textArray = textArea.split(` `, `.`, `,`,`!`,`?`);
-    let vowelArray = textArray.filter(textArray => `a`, `e`, `i`, `o`, `u`);
+    let vowels = {
+        a: 0,
+        e: 0,
+        i: 0,
+        o: 0,
+        u: 0,
+    };
+}
 
+let punctuationCounter = function() {
+    let punctuation = {
+        period: 0,
+        comma: 0,
+        questionMark: 0,
+        exclamation: 0,
+    };
+}
+
+let characterCounter = function() {
+    let numCharacters = 0;
+}
+
+let wordCounter = function() {
+    let numWords = 0;
+}
+
+let longWordDeterminer = function() {
+    let longestWord = ``;
+}
+
+let shortWordDeterminer = function() {
+    let shortestWord = ``;
+}
+
+let last3WordsDeterminer = function() {
+    let last3Words = ``;
+}
+
+let waldoIndexDeterminer = function() {
+    let waldoIndexes = ``;
 }
 
 let dataAnalysis = function() {
