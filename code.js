@@ -24,6 +24,13 @@ let analyzedData = {
     waldoOccuranceIndex: [],
 }
 
+let vowelCounter = function() {
+    let vowels = {};
+    let textArray = textArea.split(` `, `.`, `,`,`!`,`?`);
+    let vowelArray = textArray.filter(textArray => `a`, `e`, `i`, `o`, `u`);
+
+}
+
 let dataAnalysis = function() {
 }
 
