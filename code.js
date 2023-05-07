@@ -25,7 +25,11 @@ let analyzedData = {
 }
 
 let dataAnalysis = function() {
+    renderResults();
+}
 
+let renderResults = function() {
+    results.innerText = "Test";
 }
 
 textArea.addEventListener("keyup", dataAnalysis);
