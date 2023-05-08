@@ -2,34 +2,61 @@ let textArea = document.getElementById("text");
 let results = document.getElementById("results");
 
 // Your Code Here.
-let result = {
-    vowels: {
-      a: 0,
-      e: 0,
-      i: 0,
-      o: 0,
-      u: 0
-    },
-    punctuation: {
-      period: 0,
-      comma: 0,
-      exclamation: 0,
-      questionMark: 0
-    },
-    numCharacters: 0,
-    numWords: 0,
-    longestWord: "",
-    shortestWord: "",
-    lastThreeWords: [],
-    waldoIndexes: [],
-  }
+let result = {};
 
-let vowelAnalyzer = function(text) {
-    for (let index = 0; index < text.length; index++) {
-        if (text.charAt(index) == `a`) {
-            result.vowels.a += 1;
-        } 
+let vowelAnalyzer = function() {
+    let vowels = {
+        a: 0,
+        e: 0,
+        i: 0,
+        o: 0,
+        u: 0,
     }
+
+    for (let index = 0; index < textArea.length; index++) {
+        if (textArea.charAt(index) == `a`) {
+            vowels.a += 1;
+        }
+    }
+    return vowels;
+}
+
+let punctuationAnalyzer = function() {
+    let punctuation = {
+        period: 0,
+        comma: 0,
+        exclamation: 0,
+        questionMark: 0
+    }
+    return punctuation;
+}
+
+let characterAnalyzer = function() {
+    let numCharacters = 0;
+    return numCharacters;
+}
+let wordAnalyzer = function() {
+    let numWords = 0;
+    return numWords;
+}
+let longWordAnalyzer = function() {
+    let longestWord = ``;
+    return longestWord;
+}
+
+let shortWordAnalyzer = function() {
+    let shortestWord = ``;
+    return shortestWord;
+}
+
+let last3Analyzer = function() {
+    let lastThreeWords = [];
+    return lastThreeWords;
+}
+
+let waldoAnalyzer = function() {
+    let waldoIndexes = [];
+    return waldoIndexes;
 }
 
 let dataRenderer = function(resultData) {
@@ -90,4 +117,12 @@ let dataRenderer = function(resultData) {
 }
 
 textArea.addEventListener("keyup", vowelAnalyzer);
+textArea.addEventListener("keyup", punctuationAnalyzer);
+textArea.addEventListener("keyup", characterAnalyzer);
+textArea.addEventListener("keyup", wordAnalyzer);
+textArea.addEventListener("keyup", longWordAnalyzer);
+textArea.addEventListener("keyup", shortWordAnalyzer);
+textArea.addEventListener("keyup", last3Analyzer);
+textArea.addEventListener("keyup", waldoAnalyzer);
+
 dataRenderer(result);
