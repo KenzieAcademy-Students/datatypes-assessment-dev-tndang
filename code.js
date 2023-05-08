@@ -2,6 +2,8 @@ let textArea = document.getElementById("text");
 let results = document.getElementById("results");
 
 // Your Code Here.
+let result = {}
+
 let dataRenderer = function() { // This functioin renders the table with the data by creating, styling and placing the needed elements
     //Create two divs, one to hold the Text Analysis Title, and one to Hold the Data
     let textAnalysisDiv = document.createElement(`div`);
@@ -82,7 +84,7 @@ let updateRenderer = function(resultData) { // This function updates the rendere
 
 
 let dataAnalyzer = function() { // This function is the master function that will call on keyup
-    let result = {
+    result = {
         text: `${textArea}`,
         vowels: {
           a: 0,
@@ -161,7 +163,7 @@ let wordAnalyzer = function(resultData) { // This function analyzes the input te
     let wordCount = 0
 
     for ( let index = 0; index < cleanArray.length; index++) {
-            wordCount += 1;
+            resultData.numWords += 1;
     }
 }
 let longWordAnalyzer = function(resultData) { // This function analyzes the input text and determines the longest word
@@ -175,6 +177,7 @@ let longWordAnalyzer = function(resultData) { // This function analyzes the inpu
         }
 
     }
+    resultData.longestWord = longestWord;
 }
 
 let shortWordAnalyzer = function(resultData) {  // This function analyzes the input text and determines the shortest word
@@ -205,5 +208,5 @@ let waldoAnalyzer = function(resultData) { // This function analyzes the input t
     }
 }
 
-dataRenderer();
-textArea.addEventListener(`keyup`, dataAnalyzer);
+dataRenderer(); //Evokes the renderer once
+textArea.addEventListener(`keyup`, dataAnalyzer); // On every keyup in the textArea should execute the functions within 
