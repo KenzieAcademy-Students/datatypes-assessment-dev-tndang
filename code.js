@@ -46,7 +46,7 @@ let characterAnalyzer = function(resultData) { // This function analyzes the inp
 }
 
 let wordAnalyzer = function(resultData) { // This function analyzes the input text and determins the word count
-    let removePuctuation = resultData.text.replaceAll(/\s+[.,\/#!$%\^&\*;:{}=\-_`~()?]/g," ");
+    let removePuctuation = resultData.text.replaceAll(/\s+[.,\/#!$%\^&\*;:{}=\-_`~()?]/g,` `);
     let cleanArray = removePuctuation.split(` `);
     let wordCount = 0
 
@@ -56,7 +56,7 @@ let wordAnalyzer = function(resultData) { // This function analyzes the input te
     return wordCount;
 }
 let longWordAnalyzer = function(resultData) { // This function analyzes the input text and determines the longest word
-    let removePuctuation = resultData.text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g,"");
+    let removePuctuation = resultData.text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g,``);
     let cleanArray = removePuctuation.split(` `);
     let longestWord = cleanArray.sort(function(word, anotherWord) {
         return anotherWord.length - word.length;
@@ -65,7 +65,7 @@ let longWordAnalyzer = function(resultData) { // This function analyzes the inpu
 }
 
 let shortWordAnalyzer = function(resultData) {  // This function analyzes the input text and determines the shortest word
-    let removePuctuation = resultData.text.replaceAll(/\s+[.,\/#!$%\^&\*;:{}=\-_`~()?]/g," ");
+    let removePuctuation = resultData.text.replaceAll(/\s+[.,\/#!$%\^&\*;:{}=\-_`~()?]/g,` `);
     let cleanArray = removePuctuation.split(` `);
     let shortest = cleanArray[0].length;
 
@@ -79,7 +79,7 @@ let shortWordAnalyzer = function(resultData) {  // This function analyzes the in
 }
 
 let last3Analyzer = function(resultData) {  // This function analyzes the input text and determines the last 3 words
-    let removePuctuation = resultData.text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g,"");
+    let removePuctuation = resultData.text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g,``);
     let cleanArray = removePuctuation.split(` `);
     
     return cleanArray.slice(-3);
@@ -190,8 +190,8 @@ let dataAnalyzer = function() { // This function is the master function that wil
         },
         numCharacters: 0,
         numWords: 0,
-        longestWord: "",
-        shortestWord: "",
+        longestWord: ``,
+        shortestWord: ``,
         lastThreeWords: [],
         waldoIndexes: [],
       }
