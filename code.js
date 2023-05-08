@@ -46,7 +46,7 @@ let characterAnalyzer = function(resultData) { // This function analyzes the inp
 }
 
 let wordAnalyzer = function(resultData) { // This function analyzes the input text and determins the word count
-    let removePuctuation = resultData.text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g,"");
+    let removePuctuation = resultData.text.replaceAll(/\s+[.,\/#!$%\^&\*;:{}=\-_`~()?]/g," ");
     let cleanArray = removePuctuation.split(` `);
     let wordCount = 0
 
@@ -65,18 +65,17 @@ let longWordAnalyzer = function(resultData) { // This function analyzes the inpu
 }
 
 let shortWordAnalyzer = function(resultData) {  // This function analyzes the input text and determines the shortest word
-    let removePuctuation = resultData.text.replaceAll(/\s+[.,\/#!$%\^&\*;:{}=\-_`~()?]/g,"");
+    let removePuctuation = resultData.text.replaceAll(/\s+[.,\/#!$%\^&\*;:{}=\-_`~()?]/g," ");
     let cleanArray = removePuctuation.split(` `);
-    let shortest = cleanArray[0].length
-    let shortestWord = ``;
+    let shortest = cleanArray[0].length;
 
     for (let index = 0; index < cleanArray.length; index++) {
         if (shortest > cleanArray[index].length) {
-            shortestWord = cleanArray[index];
+            shortest = cleanArray[index];
         }
     }
 
-    return shortestWord;
+    return shortest;
 }
 
 let last3Analyzer = function(resultData) {  // This function analyzes the input text and determines the last 3 words
