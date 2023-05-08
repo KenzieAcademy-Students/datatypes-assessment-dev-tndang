@@ -6,9 +6,12 @@ Follow the instructions provided on my.kenzie.academy for this assignment.
 
 Referered to the following for reference:
 
+- Week 15 Notes and Discovery Challenges
 - Q&A Week 15
+- Week 14 Dice Assessment
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace
 - https://stackoverflow.com/questions/4328500/how-can-i-strip-all-punctuation-from-a-string-in-javascript-using-regex
 - https://stackoverflow.com/questions/40864915/find-the-shortest-string-in-array
 - https://www.freecodecamp.org/news/three-ways-to-find-the-longest-word-in-a-string-in-javascript-a2fb04c9757c/
+- Instructor
 
