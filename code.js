@@ -4,6 +4,97 @@ let results = document.getElementById("results");
 // Your Code Here.
 let result = {}
 
+let vowelAnalyzer = function(resultData) { // This function analyzes the input text for vowels, and increase count
+    for (let index = 0; index < resultData.text.length; index++) {
+        if (resultData.text[index] === `a`) {
+            resultData.vowels.a += 1;
+        } else if (resultData.text[index] === `e`) {
+            resultData.vowels.e += 1;
+        } else if (resultData.text[index] === `i`) {
+            resultData.vowels.i += 1;
+        } else if (resultData.text[index] === `o`) {
+            resultData.vowels.o += 1;
+        }  else if (resultData.text[index] === `u`) {
+            resultData.vowels.u += 1;
+        }
+    }
+    return resultData.vowels;
+}
+
+let punctuationAnalyzer = function(resultData) { // This function analyzes the input text for punctuation, increase count
+    for (let index = 0; index < resultData.text.length; index++) {
+        if (resultData.text[index] === `.`) {
+            resultData.punctuation.period += 1;
+        } else if (resultData.text[index] === `,`) {
+            resultData.punctuation.comma += 1;
+        } else if (resultData.text[index] === `!`) {
+            resultData.punctuation.exclamation += 1;
+        } else if (resultData.text[index] === `?`) {
+            resultData.punctuation.questionMark += 1;
+        }
+    }
+    return resultData.punctuation;
+}
+
+let characterAnalyzer = function(resultData) { // This function analyzes the input text and determines the number of characters
+    let characterCount = 0;
+
+    for (let index = 0; index < resultData.text.length; index++) {
+        characterCount += 1;
+    }
+    return characterCount;
+}
+
+let wordAnalyzer = function(resultData) { // This function analyzes the input text and determins the word count
+    let removePuctuation = resultData.text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g,"");
+    let cleanArray = removePuctuation.split(` `);
+    let wordCount = 0
+
+    for (let index = 0; index < cleanArray.length; index++) {
+        wordCount += 1;
+    }
+    return wordCount;
+}
+let longWordAnalyzer = function(resultData) { // This function analyzes the input text and determines the longest word
+    let removePuctuation = resultData.text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g,"");
+    let cleanArray = removePuctuation.split(` `);
+    let longestWord = cleanArray.sort(function(word, anotherWord) {
+        return anotherWord.length - word.length;
+    })
+    return longestWord[0];
+}
+
+let shortWordAnalyzer = function(resultData) {  // This function analyzes the input text and determines the shortest word
+    let removePuctuation = resultData.text.replaceAll(/\s+[.,\/#!$%\^&\*;:{}=\-_`~()?]/g,"");
+    let cleanArray = removePuctuation.split(` `);
+    let shortest = cleanArray[0].length
+    let shortestWord = ``;
+
+    for (let index = 0; index < cleanArray.length; index++) {
+        if (shortest > cleanArray[index].length) {
+            shortestWord = cleanArray[index];
+        }
+    }
+
+    return shortestWord;
+}
+
+let last3Analyzer = function(resultData) {  // This function analyzes the input text and determines the last 3 words
+    let removePuctuation = resultData.text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g,"");
+    let cleanArray = removePuctuation.split(` `);
+    
+    return cleanArray.slice(-3);
+}
+
+let waldoAnalyzer = function(resultData) { // This function analyzes the input text and determines the Waldo Indexes
+    for (let index = 0; index < resultData.text.length; index++) {
+        if (resultData.text.toLowerCase().slice(index, index + 5) === `waldo`) {
+            resultData.waldoIndexes.push(index);
+        }
+    }
+    return resultData.waldoIndexes;
+}
+
 let dataRenderer = function() { // This functioin renders the table with the data by creating, styling and placing the needed elements
     //Create two divs, one to hold the Text Analysis Title, and one to Hold the Data
     let textAnalysisDiv = document.createElement(`div`);
@@ -65,27 +156,26 @@ let dataRenderer = function() { // This functioin renders the table with the dat
     punctuationTextElement.innerText = `Periods: 0 \n Commas: 0 \n Question Marks: 0 \n Exclamations: 0`;
     numCharactersElement.innerText = `Number of Characters: 0`;
     numWordsElement.innerText = `Number of Words: 0`;
-    longestWordElement.innerText = `Longest Word: ""`;
-    shortestWordElement.innerText = `Shortest Word: ""`;
-    last3WordsElement.innerText = `Last Three Words: []`;
+    longestWordElement.innerText = `Longest Word: `;
+    shortestWordElement.innerText = `Shortest Word: `;
+    last3WordsElement.innerText = `Last Three Words: `;
     waldoCountElement.innerText = `Waldo Indexes: []`;
 }
 
-let updateRenderer = function(resultData) { // This function updates the renderer to the new values for the analyzed data
-    document.getElementById(`vowelsCount`).innerText = `a: ${resultData.vowels.a} \n e: ${resultData.vowels.e} \n i: ${resultData.vowels.i} \n o: ${resultData.vowels.o} \n u: ${resultData.vowels.u}`;
-    document.getElementById(`punctuationsCount`).innerText = `Periods: ${resultData.punctuation.period} \n Commas: ${resultData.punctuation.comma} \n Question Marks: ${resultData.punctuation.questionMark} \n Exclamations: ${resultData.punctuation.exclamation}`;
-    document.getElementById(`charactersCount`).innerText = `Number of Characters: ${resultData.numCharacters}`;
-    document.getElementById(`wordsCounts`).innerText = `Number of Words: ${resultData.numWords}`;
-    document.getElementById(`longestWord`).innerText = `Longest Word: ${resultData.longestWord}`;
-    document.getElementById(`shortestWord`).innerText = `Shortest Word: ${resultData.shortestWord}`;
-    document.getElementById(`last3Words`).innerText = `Last Three Words: ${resultData.lastThreeWords}`;
-    document.getElementById(`waldoIndex`).innerText = `Waldo Indexes: ${resultData.waldoIndexes}`;
+let updateRenderer = function() { // This function updates the renderer to the new values for the analyzed data
+    document.getElementById(`vowelsCount`).innerText = `a: ${result.vowels.a} \n e: ${result.vowels.e} \n i: ${result.vowels.i} \n o: ${result.vowels.o} \n u: ${result.vowels.u}`;
+    document.getElementById(`punctuationsCount`).innerText = `Periods: ${result.punctuation.period} \n Commas: ${result.punctuation.comma} \n Question Marks: ${result.punctuation.questionMark} \n Exclamations: ${result.punctuation.exclamation}`;
+    document.getElementById(`charactersCount`).innerText = `Number of Characters: ${result.numCharacters}`;
+    document.getElementById(`wordsCounts`).innerText = `Number of Words: ${result.numWords}`;
+    document.getElementById(`longestWord`).innerText = `Longest Word: ${result.longestWord}`;
+    document.getElementById(`shortestWord`).innerText = `Shortest Word: ${result.shortestWord}`;
+    document.getElementById(`last3Words`).innerText = `Last Three Words: ${result.lastThreeWords}`;
+    document.getElementById(`waldoIndex`).innerText = `Waldo Indexes: [${result.waldoIndexes}]`;
 }
-
 
 let dataAnalyzer = function() { // This function is the master function that will call on keyup
     result = {
-        text: `${textArea}`,
+        text: `${textArea.value}`,
         vowels: {
           a: 0,
           e: 0,
@@ -107,106 +197,17 @@ let dataAnalyzer = function() { // This function is the master function that wil
         waldoIndexes: [],
       }
 
-      vowelAnalyzer(result);
-      punctuationAnalyzer(result);
-      characterAnalyzer(result);
-      wordAnalyzer(result);
-      longWordAnalyzer(result);
-      shortWordAnalyzer(result);
-      last3Analyzer(result);
-      waldoAnalyzer(result);
-      updateRenderer(result);
+      result.vowels = vowelAnalyzer(result);
+      result.punctuation = punctuationAnalyzer(result);
+      result.numCharacters = characterAnalyzer(result);
+      result.numWords = wordAnalyzer(result);
+      result.longestWord = longWordAnalyzer(result);
+      result.shortestWord = shortWordAnalyzer(result);
+      result.lastThreeWords = last3Analyzer(result);
+      result.waldoIndexes = waldoAnalyzer(result);
+      updateRenderer();
 }
 
-let vowelAnalyzer = function(resultData) { // This function analyzes the input text for vowels, and increase count
-    for (let index = 0; index < resultData.text.length; index++) {
-        if (resultData.text[index] === `a`) {
-            resultData.vowels.a += 1;
-        } else if (resultData.text[index] === `e`) {
-            resultData.vowels.e += 1;
-        } else if (resultData.text[index] === `i`) {
-            resultData.vowels.i += 1;
-        } else if (resultData.text[index] === `o`) {
-            resultData.vowels.o += 1;
-        }  else if (resultData.text[index] === `u`) {
-            resultData.vowels.u += 1;
-        }
-    }
-}
-
-let punctuationAnalyzer = function(resultData) { // This function analyzes the input text for punctuation, increase count
-    for (let index = 0; index < resultData.text.length; index++) {
-        if (resultData.text[index] === `.`) {
-            resultData.punctuation.period += 1;
-        } else if (resultData.text[index] === `,`) {
-            resultData.punctuation.comma += 1;
-        } else if (resultData.text[index] === `!`) {
-            resultData.punctuation.exclamation += 1;
-        } else if (resultData.text[index] === `?`) {
-            resultData.punctuation.questionMark += 1;
-        }
-    }
-}
-
-let characterAnalyzer = function(resultData) { // This function analyzes the input text and determines the number of characters
-    let characterCount = 0;
-
-    for ( let index = 0; index < resultData.text.length; index++) {
-        characterCount += 1;
-    }
-    resultData.numCharacters = characterCount;
-}
-
-let wordAnalyzer = function(resultData) { // This function analyzes the input text and determins the word count
-    let removePuctuation = resultData.text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
-    let cleanArray = removePuctuation.split(` `);
-    let wordCount = 0
-
-    for ( let index = 0; index < cleanArray.length; index++) {
-            resultData.numWords += 1;
-    }
-}
-let longWordAnalyzer = function(resultData) { // This function analyzes the input text and determines the longest word
-    let removePuctuation = resultData.text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
-    let cleanArray = removePuctuation.split(` `);
-    let longestWord = 0;
-
-    for ( let index = 0; index < cleanArray.length; index++) {
-        if (cleanArray[index].length > longestWord) {
-            longestWord = cleanArray[index].length;
-        }
-
-    }
-    resultData.longestWord = longestWord;
-}
-
-let shortWordAnalyzer = function(resultData) {  // This function analyzes the input text and determines the shortest word
-    let removePuctuation = resultData.text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
-    let cleanArray = removePuctuation.split(` `);
-    let shortestWord = 0;
-
-    for ( let index = 0; index < cleanArray.length; index++) {
-        if (cleanArray[index].length < shortestWord) {
-            shortestWord = cleanArray[index].length;
-        }
-    }
-    resultData.shortestWord = shortestWord;
-}
-
-let last3Analyzer = function(resultData) {  // This function analyzes the input text and determines the last 3 words
-    let removePuctuation = resultData.text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
-    let cleanArray = removePuctuation.split(` `);
-    
-    resultData.last3Words = cleanArray.slice(-3);
-}
-
-let waldoAnalyzer = function(resultData) { // This function analyzes the input text and determines the Waldo Indexes
-    for (let index = 0; index < resultData.text.length; index++) {
-        if (resultData.text.toLowerCase().slice(index, index + 5) === `waldo`) {
-            resultData.waldoIndexes.push(index);
-        }
-    }
-}
 
 dataRenderer(); //Evokes the renderer once
 textArea.addEventListener(`keyup`, dataAnalyzer); // On every keyup in the textArea should execute the functions within 
